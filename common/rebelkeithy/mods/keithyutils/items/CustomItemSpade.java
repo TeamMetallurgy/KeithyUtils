@@ -12,9 +12,4 @@ public class CustomItemSpade extends ItemSpade
 		super(par1, par2EnumToolMaterial);
 	}
 	
-    public Item setTextureName(String par1Str)
-    {
-        super.func_111206_d(par1Str);
-        return this;
-    }
 }

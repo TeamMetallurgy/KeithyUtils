@@ -86,7 +86,7 @@ public class CapeTickHandler implements ITickHandler
         
         for(String modder : modders) {
             ThreadDownloadImageData object = new ThreadDownloadImageData(cloakURL, null, null);
-            Minecraft.getMinecraft().renderEngine.func_110579_a(new ResourceLocation("cloaks/" + modder), (TextureObject) object);
+            Minecraft.getMinecraft().renderEngine.loadTexture(new ResourceLocation("cloaks/" + modder), (TextureObject) object);
         }
         
     }

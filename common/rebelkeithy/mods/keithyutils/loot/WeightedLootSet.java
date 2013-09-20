@@ -89,7 +89,7 @@ public class WeightedLootSet
 				{
 			        Enchantment enchantment = Enchantment.enchantmentsList[rand.nextInt(Enchantment.enchantmentsList.length)];
 			        int l = MathHelper.getRandomIntegerInRange(rand, enchantment.getMinLevel(), enchantment.getMaxLevel());
-			        ((ItemEnchantedBook) stack.getItem()).getEnchantedItemStack_do(stack, new EnchantmentData(enchantment, l));
+			        ((ItemEnchantedBook) stack.getItem()).addEnchantment(stack, new EnchantmentData(enchantment, l));
 				}
 				break;
 			}

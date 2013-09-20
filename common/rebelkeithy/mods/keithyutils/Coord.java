@@ -3,6 +3,7 @@ package rebelkeithy.mods.keithyutils;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class Coord 
@@ -63,4 +64,9 @@ public class Coord
 	{
 		return world.getBlockMetadata(x, y, z);
 	}
+
+    public TileEntity getTileEntity(World worldObj)
+    {
+        return worldObj.getBlockTileEntity(x, y, z);
+    }
 }
