@@ -1,94 +1,79 @@
 package rebelkeithy.mods.keithyutils.capes;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.ImageBufferDownload;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.TextureObject;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import rebelkeithy.mods.keithyutils.particleregistry.ParticleRegistry;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
-public class CapeTickHandler implements ITickHandler
+public class CapeTickHandler
 {
-	private boolean raining;
-	private boolean overlay;
-	public static int defaultFog;
-
-	public static String CapeUrl;
+	private static final String REMOTE_CAPES_LIST = "https://dl.dropboxusercontent.com/u/21347544/EnchantingPlus/MetallurgyDonatorCapes.txt";
 	
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) 
-	{
-		if(type.equals(EnumSet.of(TickType.PLAYER)))
-		{
-			if(Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.loadedEntityList.size() > 0)
-			{
-				List<EntityPlayer> players = Minecraft.getMinecraft().theWorld.playerEntities;
-				for(EntityPlayer player : players)
-				{
-					if(player != null && player.getEntityName().equals("RebelKeithy") || player.getEntityName().equals("Shadowclaimer"))
-					{
-						//System.out.println("tick");
-						String cloakURL = "http://i.imgur.com/AMVu0m2.png";
-						
-						if(player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-						{
-							if(player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).hasKey("CapeUrl"))
-							{
-								cloakURL = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getString("CapeUrl");
-							}
-						}
-						
-						//if(((AbstractClientPlayer)player).cloakUrl != cloakURL)
-						//	player.cloakUrl = cloakURL;
-
-						//Minecraft.getMinecraft().renderEngine.obtainImageData(player.cloakUrl, new ImageBufferDownload());
-					}
-				}
-			}
-		}
-
-	}
-
-
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData) 
-    {
-    }
-
-	@Override
-	public EnumSet<TickType> ticks() 
-	{
-		return EnumSet.of(TickType.PLAYER);
-	}
-
-	@Override
-	public String getLabel() {
-		return "Atum.TickHandler.Player";
-	}
-
-
+	static List<String> modders = Arrays.asList(new String[]{ "RebelKeithy" , "Shadowclaimer" });
+		
     public static void registerCapes()
     {
-        String cloakURL = "http://i.imgur.com/AMVu0m2.png";
-        String[] modders = { "RebelKeithy" , "Shadowclaimer" };
-        
-        for(String modder : modders) {
-            ThreadDownloadImageData object = new ThreadDownloadImageData(cloakURL, null, null);
-            Minecraft.getMinecraft().renderEngine.loadTexture(new ResourceLocation("cloaks/" + modder), (TextureObject) object);
+
+        setDevCapes(modders, "http://i.imgur.com/AMVu0m2.png");
+        getDonatorCapes();
+                
+    }
+    
+    private static void setDevCapes(List<String> modders, String cloakURL)
+    {
+        for(String modder : modders)
+        {
+            setCape(modder, cloakURL);
         }
         
+    }
+
+    private static void getDonatorCapes()
+    {
+        try
+        {
+            final URL url = new URL(REMOTE_CAPES_LIST);
+
+            final InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
+            final BufferedReader reader = new BufferedReader(inputStreamReader);
+
+            String line = null;
+            while ((line = reader.readLine()) != null)
+            {
+                if(!line.contains("-")) {
+                    continue;
+                }
+                
+                String[] strings = line.split("-");
+                
+                String donator = strings[0];
+                String image = strings[1];
+                
+                setCape(donator, image);
+                
+            }
+        } catch (final Exception ex)
+        {
+          
+        }
+    }
+    
+    private static void setCape(String username, String capeImage)
+    {
+        ThreadDownloadImageData cape = new ThreadDownloadImageData(capeImage, null, null);
+        Minecraft.getMinecraft().getTextureManager().loadTexture(new ResourceLocation("cloaks/" + username),(TextureObject) cape);  
     }
 
 }
