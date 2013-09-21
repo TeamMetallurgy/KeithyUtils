@@ -19,7 +19,7 @@ import cpw.mods.fml.common.TickType;
 
 public class CapeTickHandler
 {
-	private static final String REMOTE_CAPES_LIST = "https://dl.dropboxusercontent.com/u/21347544/EnchantingPlus/MetallurgyDonatorCapes.txt";
+	private static final String REMOTE_CAPES_LIST = "http://gwycraft.gcod.net/wp-content/uploads/2013/09/capeinfo.txt";
 	
 	static List<String> modders = Arrays.asList(new String[]{ "RebelKeithy" , "Shadowclaimer" });
 		
@@ -52,11 +52,11 @@ public class CapeTickHandler
             String line = null;
             while ((line = reader.readLine()) != null)
             {
-                if(!line.contains("-")) {
+                if(!line.contains(",")) {
                     continue;
                 }
                 
-                String[] strings = line.split("-");
+                String[] strings = line.split(",");
                 
                 String donator = strings[0];
                 String image = strings[1];
