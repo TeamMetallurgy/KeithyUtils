@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -28,14 +30,14 @@ public class MetaBlock extends Block {
 	List<Integer> tickList;
 	ArrayList<CreativeTabs> tabs;
 	
-	public static List registeredIDs;
+	public static List<Integer> registeredIDs;
 	
 	//public static SubBlock air = new SubBlock(0, 0, "").setHardness(0).setResistance(0);
 	
 	public static void registerID(int id)
 	{
 		if(registeredIDs == null)
-			registeredIDs = new ArrayList();
+			registeredIDs = Lists.newArrayList();
 		
 		if(registeredIDs.contains(id))
 			return;
@@ -56,7 +58,7 @@ public class MetaBlock extends Block {
 		//for(int i = 0; i > 16; i++)
 		//	subBlocks[i] = air;
 		
-		tickList = new ArrayList();
+		tickList = Lists.newArrayList();
 	}
 
 	public void addSubBlock(SubBlock block, int meta)

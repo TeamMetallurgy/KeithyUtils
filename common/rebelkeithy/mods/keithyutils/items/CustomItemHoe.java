@@ -1,7 +1,6 @@
 package rebelkeithy.mods.keithyutils.items;
 
 import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 
 public class CustomItemHoe extends ItemHoe

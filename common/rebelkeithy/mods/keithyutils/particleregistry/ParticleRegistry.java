@@ -22,10 +22,10 @@ public class ParticleRegistry
     @SideOnly(Side.CLIENT)
 	public static void spawnParticle(String string, World par1World, double x, double y, double z, double r, double g, double b) 
 	{
-		Class entityClass = particleList.get(string);
+		Class<?> entityClass = particleList.get(string);
 		if(entityClass != null)
 		{
-			Constructor entityConstructor;
+			Constructor<?> entityConstructor;
 			try {
 				entityConstructor = entityClass.getConstructor(World.class, Double.TYPE, Double.TYPE, Double.TYPE, Double.TYPE, Double.TYPE, Double.TYPE);
 				if(entityConstructor != null)
