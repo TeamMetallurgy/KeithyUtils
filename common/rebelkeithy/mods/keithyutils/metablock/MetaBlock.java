@@ -51,7 +51,6 @@ public class MetaBlock extends Block {
 	public MetaBlock(int id) 
 	{
 		super(id, Material.rock);
-		System.out.println("test");
 		subBlocks = new SubBlock[16];
 		//for(int i = 0; i > 16; i++)
 		//	subBlocks[i] = air;
