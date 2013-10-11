@@ -38,10 +38,10 @@ public class SubBlock
 	
 	public SubBlock(int id, int meta, String iconName)
 	{
-	    if (Block.blocksList[id] != null)
-        {
-            throw new IllegalArgumentException("Slot " + id + " is already occupied by " + Block.blocksList[id] + " when adding " + this);
-        }
+//	    if (Block.blocksList[id] != null)
+//        {
+//            throw new IllegalArgumentException("Slot " + id + " is already occupied by " + Block.blocksList[id] + " when adding " + this);
+//        }
 	    
 	    if(!(Block.blocksList[id] instanceof MetaBlock))
 		{
