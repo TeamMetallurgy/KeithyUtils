@@ -78,7 +78,7 @@ public class EventListener
 			
 			try
 			{
-				Class items = Class.forName("rebelkeithy.mods.aquaculture.AquacultureItems");
+				Class<?> items = Class.forName("rebelkeithy.mods.aquaculture.AquacultureItems");
 				Field field = items.getField("adminFishingRod");
 				Item rod = (Item) field.get(null);
 				System.out.println(player.inventory.addItemStackToInventory(new ItemStack(rod)));
@@ -103,7 +103,7 @@ public class EventListener
 			
 			try
 			{
-				Class items = Class.forName("rebelkeithy.mods.metallurgy.metals.MetallurgyMetals");
+				Class<?> items = Class.forName("rebelkeithy.mods.metallurgy.metals.MetallurgyMetals");
 				Field field = items.getField("debug");
 				Item rod = (Item) field.get(null);
 				System.out.println(player.inventory.addItemStackToInventory(new ItemStack(rod)));

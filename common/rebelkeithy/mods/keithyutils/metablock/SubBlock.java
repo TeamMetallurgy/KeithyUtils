@@ -22,8 +22,6 @@ public class SubBlock
 	private CreativeTabs tab;
 	int meta;
 	
-	private int textureIndex;
-	
 	private ItemStack drop;
 	private int dropMin;
 	private int dropMax;
