@@ -122,7 +122,7 @@ public class MetaBlock extends Block {
 	
     public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
-    	SubBlocks blocks = subBlocks[par1World.getBlockMetadata(par2, par3, par4)];
+    	SubBlock blocks = subBlocks[par1World.getBlockMetadata(par2, par3, par4)];
     	if(blocks != null){
     		blocks.onEntityCollidedWithBlock(par1World, par2, par3, par4, par5Entity);
     	}
