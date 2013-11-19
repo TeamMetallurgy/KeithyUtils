@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid="KeithyUtils", name="Keithy Utils", version="1.2")
-@NetworkMod(channels = {"KeithyUtils"}, clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class KeithyUtils {
 
 	@SidedProxy(clientSide = "rebelkeithy.mods.keithyutils.ClientProxy", serverSide = "rebelkeithy.mods.keithyutils.CommonProxy")
