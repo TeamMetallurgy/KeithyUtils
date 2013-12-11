@@ -48,6 +48,7 @@ public class MetaItem extends Item
         return super.getUnlocalizedName() + "." + subItems.get(i).getUnlocalizedName(par1ItemStack);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @SideOnly(Side.CLIENT)
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)

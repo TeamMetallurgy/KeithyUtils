@@ -1,19 +1,17 @@
 package rebelkeithy.mods.keithyutils.guiregistry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.network.IGuiHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class GuiRegistry implements IGuiHandler 
 {

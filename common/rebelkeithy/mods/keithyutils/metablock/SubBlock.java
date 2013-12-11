@@ -6,7 +6,6 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,8 +21,6 @@ public class SubBlock
 	private MetaBlock metaBlock;
 	private CreativeTabs tab;
 	int meta;
-	
-	private int textureIndex;
 	
 	private ItemStack drop;
 	private int dropMin;
@@ -41,11 +38,16 @@ public class SubBlock
 	
 	public SubBlock(int id, int meta, String iconName)
 	{
-		if(!(Block.blocksList[id] instanceof MetaBlock))
+//	    if (Block.blocksList[id] != null)
+//        {
+//            throw new IllegalArgumentException("Slot " + id + " is already occupied by " + Block.blocksList[id] + " when adding " + this);
+//        }
+	    
+	    if(!(Block.blocksList[id] instanceof MetaBlock))
 		{
 			metaBlock = new MetaBlock(id);
 			metaBlock.addSubBlock(this, meta);
-		} else {
+		}else {
 			metaBlock = (MetaBlock) Block.blocksList[id];
 			metaBlock.addSubBlock(this, meta);
 		}
