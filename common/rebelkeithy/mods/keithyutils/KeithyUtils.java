@@ -3,7 +3,6 @@ package rebelkeithy.mods.keithyutils;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
-import rebelkeithy.mods.keithyutils.commands.KeithyCommands;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -28,7 +27,6 @@ public class KeithyUtils {
 	public void serverStart(FMLServerStartingEvent event)
 	{
 		ServerCommandManager serverCommand = (ServerCommandManager) MinecraftServer.getServer().getCommandManager();
-		serverCommand.registerCommand(new KeithyCommands());
 	}
 	 
 	

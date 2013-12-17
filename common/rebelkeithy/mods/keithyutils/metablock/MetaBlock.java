@@ -45,7 +45,8 @@ public class MetaBlock extends Block {
 		Block block = Block.blocksList[id];
 		if(block instanceof MetaBlock)
 		{
-			GameRegistry.registerBlock(block, ItemMetaBlock.class);
+
+			GameRegistry.registerBlock(block, ItemMetaBlock.class, "KeithyUtils:" +  block.getUnlocalizedName());
 			registeredIDs.add(id);
 		}
 	}
