@@ -28,6 +28,16 @@ public class ItemMetaBlock extends ItemBlock
 	public String getUnlocalizedName(ItemStack itemstack)
 	{
 		int meta = itemstack.getItemDamage();
-		return getUnlocalizedName() + "." + meta;
+		Block block = Block.blocksList[this.getBlockID()];
+		
+		String name;
+		
+		if (block instanceof MetaBlock){
+			name = ((MetaBlock)block).getUnlocalizedName(meta);
+		} else {
+			name = getUnlocalizedName() + "." + meta;
+		}
+		
+		return name;
 	}
 }

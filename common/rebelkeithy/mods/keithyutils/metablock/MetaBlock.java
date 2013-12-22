@@ -262,4 +262,20 @@ public class MetaBlock extends Block {
 		
 		return tabs.toArray(new CreativeTabs[tabs.size()]);
 	}
+	
+	public String getUnlocalizedName(int meta) {
+		
+		
+		if (meta >= 0 && meta < subBlocks.length) {
+			
+			if (subBlocks[meta] == null){
+				return this.getUnlocalizedName() + "." + Integer.toString(meta);
+			}
+			
+			return subBlocks[meta].getUnlocalizedName();
+			
+		} else {
+			return this.getUnlocalizedName();
+		}
+	}
 }
