@@ -221,7 +221,6 @@ public class SubBlock
 
 	public int getDamageValue(World world, int x, int y, int z) 
 	{
-		System.out.println(meta);
 		return meta;
 	}
 
