@@ -36,6 +36,8 @@ public class SubBlock
 	public Icon icon;
 	public String iconName;
 	
+	private String unlocalizedName;
+	
 	public SubBlock(int id, int meta, String iconName)
 	{
 //	    if (Block.blocksList[id] != null)
@@ -47,7 +49,8 @@ public class SubBlock
 		{
 			metaBlock = new MetaBlock(id);
 			metaBlock.addSubBlock(this, meta);
-		}else {
+			metaBlock.setUnlocalizedName("metablock."+ Integer.toString(id));
+		} else {
 			metaBlock = (MetaBlock) Block.blocksList[id];
 			metaBlock.addSubBlock(this, meta);
 		}
@@ -135,8 +138,12 @@ public class SubBlock
 
 
 	public SubBlock setUnlocalizedName(String string) {
-		metaBlock.setUnlocalizedName(string);
+		this.unlocalizedName = string;
 		return this;
+	}
+	
+	public String getUnlocalizedName () {
+		return "tile." + this.unlocalizedName;
 	}
 
 
@@ -201,7 +208,7 @@ public class SubBlock
 	
 	public String toString()
 	{
-		return super.toString() + metaBlock.getUnlocalizedName();
+		return super.toString() + getUnlocalizedName();
 	}
 
 	public int damageDropped(int meta) 
@@ -214,7 +221,6 @@ public class SubBlock
 
 	public int getDamageValue(World world, int x, int y, int z) 
 	{
-		System.out.println(meta);
 		return meta;
 	}
 
