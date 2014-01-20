@@ -88,7 +88,8 @@ public class MetaBlock extends Block {
 	{
 		for (int n = 0; n < 16; n++) 
 		{
-			if(subBlocks[n] != null && par2CreativeTabs == subBlocks[n].getCreativeTab())
+			if(subBlocks[n] != null && 
+					(par2CreativeTabs == subBlocks[n].getCreativeTab() || par2CreativeTabs == null))
 			{
 				par3List.add(new ItemStack(this, 1, n));
 			}
