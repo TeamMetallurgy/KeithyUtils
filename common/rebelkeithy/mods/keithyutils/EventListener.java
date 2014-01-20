@@ -81,7 +81,6 @@ public class EventListener
 				Class<?> items = Class.forName("rebelkeithy.mods.aquaculture.AquacultureItems");
 				Field field = items.getField("adminFishingRod");
 				Item rod = (Item) field.get(null);
-				System.out.println(player.inventory.addItemStackToInventory(new ItemStack(rod)));
 			
 			} catch(Exception e) {
 				if(!player.worldObj.isRemote)
@@ -106,12 +105,11 @@ public class EventListener
 				Class<?> items = Class.forName("rebelkeithy.mods.metallurgy.metals.MetallurgyMetals");
 				Field field = items.getField("debug");
 				Item rod = (Item) field.get(null);
-				System.out.println(player.inventory.addItemStackToInventory(new ItemStack(rod)));
 			
 			} catch(Exception e) {
 				if(!player.worldObj.isRemote)
 					player.addChatMessage("Aquaculture not found");
-				System.out.println(e);
+				
 			}
 		}
 	}

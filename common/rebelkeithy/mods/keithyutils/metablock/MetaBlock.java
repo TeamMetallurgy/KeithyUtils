@@ -237,7 +237,6 @@ public class MetaBlock extends Block {
     	int meta = world.getBlockMetadata(x, y, z);
     	if(subBlocks[meta] != null)
     	{
-    		System.out.println("returning " + subBlocks[meta].getDamageValue(world, x, y, z));
     		return subBlocks[meta].getDamageValue(world, x, y, z);
     	}
     	return meta;
