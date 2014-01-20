@@ -45,7 +45,8 @@ public class MetaBlock extends Block {
 		Block block = Block.blocksList[id];
 		if(block instanceof MetaBlock)
 		{
-			GameRegistry.registerBlock(block, ItemMetaBlock.class);
+
+			GameRegistry.registerBlock(block, ItemMetaBlock.class, "KeithyUtils:" +  block.getUnlocalizedName());
 			registeredIDs.add(id);
 		}
 	}
@@ -236,7 +237,6 @@ public class MetaBlock extends Block {
     	int meta = world.getBlockMetadata(x, y, z);
     	if(subBlocks[meta] != null)
     	{
-    		System.out.println("returning " + subBlocks[meta].getDamageValue(world, x, y, z));
     		return subBlocks[meta].getDamageValue(world, x, y, z);
     	}
     	return meta;
