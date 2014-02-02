@@ -24,134 +24,124 @@ import cpw.mods.fml.relauncher.SideOnly;
 // - Creative Tab
 // - Name
 // - texturefile
-public class MetaBlock extends Block {
+public class MetaBlock extends Block
+{
 
-	SubBlock[] subBlocks;
-	List<Integer> tickList;
-	ArrayList<CreativeTabs> tabs;
-	
-	public static List<Integer> registeredIDs;
-	
-	//public static SubBlock air = new SubBlock(0, 0, "").setHardness(0).setResistance(0);
-	
-	public static void registerID(int id)
-	{
-		if(registeredIDs == null)
-			registeredIDs = Lists.newArrayList();
-		
-		if(registeredIDs.contains(id))
-			return;
-		
-		Block block = Block.blocksList[id];
-		if(block instanceof MetaBlock)
-		{
+    SubBlock[] subBlocks;
+    List<Integer> tickList;
+    ArrayList<CreativeTabs> tabs;
 
-			GameRegistry.registerBlock(block, ItemMetaBlock.class, "KeithyUtils:" +  block.getUnlocalizedName());
-			registeredIDs.add(id);
-		}
-	}
-	
-	public MetaBlock(int id) 
-	{
-		super(id, Material.rock);
-		subBlocks = new SubBlock[16];
-		//for(int i = 0; i > 16; i++)
-		//	subBlocks[i] = air;
-		
-		tickList = Lists.newArrayList();
-	}
+    public static List<Integer> registeredIDs;
 
-	public void addSubBlock(SubBlock block, int meta)
-	{
-		if(subBlocks[meta] == null)
-		{
-			subBlocks[meta] = block;
-		} else {
-			throw new IllegalArgumentException("[MetaBlock] In block " + this.blockID + " " + this + " metadata " + meta + " is already occupied by " + subBlocks[meta] + " when adding " + block);
-		}
-	}
-	
+    // public static SubBlock air = new SubBlock(0, 0,
+    // "").setHardness(0).setResistance(0);
+
+    public static void registerID(int id)
+    {
+        if (registeredIDs == null) registeredIDs = Lists.newArrayList();
+
+        if (registeredIDs.contains(id)) return;
+
+        Block block = Block.blocksList[id];
+        if (block instanceof MetaBlock)
+        {
+
+            GameRegistry.registerBlock(block, ItemMetaBlock.class, "KeithyUtils:" + block.getUnlocalizedName());
+            registeredIDs.add(id);
+        }
+    }
+
+    public MetaBlock(int id)
+    {
+        super(id, Material.rock);
+        subBlocks = new SubBlock[16];
+        // for(int i = 0; i > 16; i++)
+        // subBlocks[i] = air;
+
+        tickList = Lists.newArrayList();
+    }
+
+    public void addSubBlock(SubBlock block, int meta)
+    {
+        if (subBlocks[meta] == null)
+        {
+            subBlocks[meta] = block;
+        }
+        else
+        {
+            throw new IllegalArgumentException("[MetaBlock] In block " + this.blockID + " " + this + " metadata " + meta + " is already occupied by " + subBlocks[meta] + " when adding " + block);
+        }
+    }
+
     public int damageDropped(int meta)
     {
-    	if(subBlocks[meta] != null)
-    	{
-    		return subBlocks[meta].damageDropped(meta);
-    	}
+        if (subBlocks[meta] != null) { return subBlocks[meta].damageDropped(meta); }
         return meta;
     }
 
+    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+        for (int n = 0; n < 16; n++)
+        {
+            if (subBlocks[n] != null && (par2CreativeTabs == subBlocks[n].getCreativeTab() || par2CreativeTabs == null))
+            {
+                par3List.add(new ItemStack(this, 1, n));
+            }
+        }
+    }
 
-	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) 
-	{
-		for (int n = 0; n < 16; n++) 
-		{
-			if(subBlocks[n] != null && 
-					(par2CreativeTabs == subBlocks[n].getCreativeTab() || par2CreativeTabs == null))
-			{
-				par3List.add(new ItemStack(this, 1, n));
-			}
-		}
-	}
-	
+    // --Listeners--//
+    public void setTickRandomly(int meta)
+    {
+        if (!tickList.contains(meta))
+        {
+            this.setTickRandomly(true);
+            tickList.add(meta);
+        }
+    }
 
-	//--Listeners--//
-	public void setTickRandomly(int meta) 
-	{
-		if(!tickList.contains(meta))
-		{
-			this.setTickRandomly(true);
-			tickList.add(meta);
-		}
-	}
-	
-	@Override
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
     {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		
-		AxisAlignedBB ret = null;
-		if(subBlocks[meta] != null)
-			ret = subBlocks[meta].getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
-    	
-    	if(ret != null)
-    		return ret;
-    	else
-    		return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
+        int meta = par1World.getBlockMetadata(par2, par3, par4);
+
+        AxisAlignedBB ret = null;
+        if (subBlocks[meta] != null) ret = subBlocks[meta].getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
+
+        if (ret != null) return ret;
+        else return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
     }
-	
+
     public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
-    	SubBlock blocks = subBlocks[par1World.getBlockMetadata(par2, par3, par4)];
-    	if(blocks != null){
-    		blocks.onEntityCollidedWithBlock(par1World, par2, par3, par4, par5Entity);
-    	}
+        SubBlock blocks = subBlocks[par1World.getBlockMetadata(par2, par3, par4)];
+        if (blocks != null)
+        {
+            blocks.onEntityCollidedWithBlock(par1World, par2, par3, par4, par5Entity);
+        }
     }
 
     public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         int meta = par1World.getBlockMetadata(par2, par3, par4);
-        
-        if(subBlocks[meta] != null)
-        	subBlocks[meta].randomDisplayTick(par1World, par2, par3, par4, par5Random);
-        else
-        	super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
+
+        if (subBlocks[meta] != null) subBlocks[meta].randomDisplayTick(par1World, par2, par3, par4, par5Random);
+        else super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
     }
-	
-	//--Block Redirect Methods--//
+
+    // --Block Redirect Methods--//
 
     @SideOnly(Side.CLIENT)
-	@Override
+    @Override
     public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
     {
-		int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
-		
-        if(subBlocks[meta] != null)
-        	return subBlocks[meta].getBlockTexture(par1IBlockAccess, x, y, z, side);
-        else
-        	return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
+        int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
+
+        if (subBlocks[meta] != null) return subBlocks[meta].getBlockTexture(par1IBlockAccess, x, y, z, side);
+        else return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
     }
 
     @Override
@@ -160,24 +150,24 @@ public class MetaBlock extends Block {
     {
         for (int i = 0; i < 16; ++i)
         {
-            if(subBlocks[i] != null)
+            if (subBlocks[i] != null)
             {
-            	subBlocks[i].registerIcons(par1IconRegister);
+                subBlocks[i].registerIcons(par1IconRegister);
             }
         }
     }
 
     /**
-     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
+     * From the specified side and block metadata retrieves the blocks texture.
+     * Args: side, metadata
      */
-    
+
     @Override
     public Icon getIcon(int par1, int par2)
     {
-    	if(subBlocks[par2] != null)
-    		return subBlocks[par2].getBlockTextureFromSide(par1);
-    	
-    	return null;
+        if (subBlocks[par2] != null) return subBlocks[par2].getBlockTextureFromSide(par1);
+
+        return null;
     }
 
     @Override
@@ -186,7 +176,7 @@ public class MetaBlock extends Block {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 
         int count = quantityDropped(metadata, fortune, world.rand);
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             int id = idDropped(metadata, world.rand, fortune);
             if (id > 0)
@@ -202,7 +192,7 @@ public class MetaBlock extends Block {
     {
         return subBlocks[meta].quantityDroppedWithBonus(fortune, random);
     }
-    
+
     @Override
     public int idDropped(int meta, Random par2Random, int par3)
     {
@@ -215,32 +205,27 @@ public class MetaBlock extends Block {
     @Override
     public float getBlockHardness(World world, int x, int y, int z)
     {
-    	int meta = world.getBlockMetadata(x, y, z);
-    	if(subBlocks[meta] != null)
-    		return subBlocks[meta].getBlockHardness();
-    	
-    	return 0;
+        int meta = world.getBlockMetadata(x, y, z);
+        if (subBlocks[meta] != null) return subBlocks[meta].getBlockHardness();
+
+        return 0;
     }
 
     @Override
     public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
     {
-    	int meta = world.getBlockMetadata(x, y, z);
-    	if(subBlocks[meta] != null)
-    		return subBlocks[meta].getExplosionResistance(entity);
-    	
-    	return 0;
+        int meta = world.getBlockMetadata(x, y, z);
+        if (subBlocks[meta] != null) return subBlocks[meta].getExplosionResistance(entity);
+
+        return 0;
     }
-    
+
     @Override
     public int getDamageValue(World world, int x, int y, int z)
     {
-    	int meta = world.getBlockMetadata(x, y, z);
-    	if(subBlocks[meta] != null)
-    	{
-    		return subBlocks[meta].getDamageValue(world, x, y, z);
-    	}
-    	return meta;
+        int meta = world.getBlockMetadata(x, y, z);
+        if (subBlocks[meta] != null) { return subBlocks[meta].getDamageValue(world, x, y, z); }
+        return meta;
     }
 
     /**
@@ -249,20 +234,30 @@ public class MetaBlock extends Block {
     @Override
     public Block setCreativeTab(CreativeTabs par1CreativeTabs)
     {
-    	if(tabs == null)
-    		tabs = new ArrayList<CreativeTabs>();
-    	
-    	if(!tabs.contains(par1CreativeTabs))
-    		tabs.add(par1CreativeTabs);
-        
-    	return this;
+        if (tabs == null) tabs = new ArrayList<CreativeTabs>();
+
+        if (!tabs.contains(par1CreativeTabs)) tabs.add(par1CreativeTabs);
+
+        return this;
     }
 
-	public CreativeTabs[] getCreativeTabArray() 
-	{
-		if(tabs == null)
-			return new CreativeTabs[0];
-		
-		return tabs.toArray(new CreativeTabs[tabs.size()]);
-	}
+    public CreativeTabs[] getCreativeTabArray()
+    {
+        if (tabs == null) return new CreativeTabs[0];
+
+        return tabs.toArray(new CreativeTabs[tabs.size()]);
+    }
+
+    public int addSubBlock(SubBlock subBlock)
+    {
+        int meta = 0;
+
+        while (this.subBlocks[meta] != null)
+        {
+            meta++;
+        }
+
+        addSubBlock(subBlock, meta);
+        return meta;
+    }
 }
