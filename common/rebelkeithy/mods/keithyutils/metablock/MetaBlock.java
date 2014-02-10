@@ -190,13 +190,17 @@ public class MetaBlock extends Block
     @Override
     public int quantityDropped(int meta, int fortune, Random random)
     {
-        return subBlocks[meta].quantityDroppedWithBonus(fortune, random);
+        if(subBlocks[meta] != null) return subBlocks[meta].quantityDroppedWithBonus(fortune, random);
+
+        return 0;
     }
 
     @Override
     public int idDropped(int meta, Random par2Random, int par3)
     {
-        return subBlocks[meta].idDropped(par2Random, par3);
+        if(subBlocks[meta] != null) return subBlocks[meta].idDropped(par2Random, par3);
+        
+        return 0;
     }
 
     /**
