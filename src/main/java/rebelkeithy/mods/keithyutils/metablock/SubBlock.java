@@ -46,10 +46,12 @@ public class SubBlock
 	    if(!(Block.blocksList[id] instanceof MetaBlock))
 		{
 			metaBlock = new MetaBlock(id);
-			this.meta = metaBlock.addSubBlock(this);
+			this.meta = meta;
+			metaBlock.addSubBlock(this, meta);
 		}else {
 			metaBlock = (MetaBlock) Block.blocksList[id];
-			this.meta = metaBlock.addSubBlock(this);
+			this.meta = meta;
+			metaBlock.addSubBlock(this, meta);
 		}
 		this.iconName = iconName;
 	}
