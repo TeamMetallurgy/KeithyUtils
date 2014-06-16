@@ -264,4 +264,14 @@ public class MetaBlock extends Block
         addSubBlock(subBlock, meta);
         return meta;
     }
+
+    public String getUnlocalizedName (int meta)
+    {
+        if (subBlocks[meta] != null)
+        {
+            return "tile." + subBlocks[meta].getUnlocalizedName();
+        }
+
+        return this.getUnlocalizedName();
+    }
 }

@@ -35,6 +35,7 @@ public class SubBlock
 	
 	public Icon icon;
 	public String iconName;
+	public String unlocalizedName;
 	
 	public SubBlock(int id, int meta, String iconName)
 	{
@@ -48,6 +49,7 @@ public class SubBlock
 			metaBlock = new MetaBlock(id);
 			this.meta = meta;
 			metaBlock.addSubBlock(this, meta);
+			metaBlock.setUnlocalizedName("keithyutils.metablock." + id);
 		}else {
 			metaBlock = (MetaBlock) Block.blocksList[id];
 			this.meta = meta;
@@ -135,10 +137,13 @@ public class SubBlock
 
 
 	public SubBlock setUnlocalizedName(String string) {
-		metaBlock.setUnlocalizedName(string);
+		this.unlocalizedName = string;
 		return this;
 	}
 
+	public String getUnlocalizedName () {
+	    return this.unlocalizedName;
+	}
 
 	public Block getBlock() {
 		return metaBlock;
