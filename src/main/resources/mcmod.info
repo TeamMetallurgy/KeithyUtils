@@ -1,0 +1,21 @@
+[
+{
+  "modid": "KeithyUtils",
+  "name": "Keithy Utils",
+  "description": "Keithy Utils",
+  "credits": "",
+  "logoFile": "",
+  "version": "1.3",
+  "mcversion": "1.6.4",
+  "url": "http://www.minecraftforum.net/topic/744918-",
+  "updateUrl": "",
+  "authors": [
+    "Team Metallurgy"
+  ],
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
